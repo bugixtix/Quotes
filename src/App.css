@@ -1,38 +1,29 @@
-.App {
-  text-align: center;
+*{
+  box-sizing: border-box;
+  margin: 0; padding: 0;
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.App{
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: center; flex-direction: row;
+  width: 100vw; height: 100vh;
+  background-color: #000;
+  position: relative;
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+#left_{
+  width: 50vw; height: 100vh; z-index: 999;
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+#right_{
+  width: 50vw; height: 100vh; z-index: 999;
 }
-
-.App-link {
-  color: #61dafb;
+#quote_{
+  padding: 20px;
+  width: 80%; height: auto;
+  border: 1px solid #000; border-radius: 8px;
+  background-color: #ba0;
+  position: absolute;
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+#quote_body{
+  text-align: center; font-size: 28px; color: #fff; text-shadow: 1px 2px #000; word-spacing: 2px; line-height: 1.4em; letter-spacing: 1.3px; font-style: oblique;
+}
+#quote_author{
+  text-align: right; font-size: 20px; color: #fff; text-shadow: 1px 2px #000; letter-spacing: 1.2px;
 }
