@@ -1,53 +1,74 @@
 import './App.css';
-import { useEffect, useState } from 'react';
+import React,{ useEffect, useState,useRef } from 'react';
 
 export default function App() {
 
   let [data_$, setData_$] = useState([])
   let [ready_$, setReady_$] = useState(false)
   let [count_$, setCount_$] = useState(0)
-  let [quote_$, setQuote_$] = useState([])
+  let [state_$, setState_$] = useState(false)
+  let quote_ref = useRef(null)
 
-  function count(e, count_){
-    
-    if(e.target.id==='left_'){
-      if(count_===0){
-        setCount_$(100)
-      }else{
-        setCount_$(prev=>prev-=1)
-      }
-    }
-    else if(e.target.id==='right_'){
-      if(count_===100){
-        setCount_$(0)
-      }else{
-        setCount_$(prev=>prev+=1)
-      }
-    }
-  }
-  
   useEffect(()=>{
-    fetch('https://type.fit/api/quotes').then(res=>res.json()).then((response)=>{setData_$(response); setData_$(response); setReady_$(true)})
+    // fetch Quotes from the API:
+    fetch('https://type.fit/api/quotes').then(res=>res.json()).then((response)=>{setData_$(response); setReady_$(true)})
     .catch(err=>console.log(err))
   },[])
+
   useEffect(()=>{
-    document.getElementById('left_').addEventListener('click',(e)=>count(e, count_$))
-    document.getElementById('right_').addEventListener('click',(e)=>count(e, count_$))
+    // Add handlers to the left&right dom divs those change the quote /forward&backward/
+    document.getElementById('leftSide').addEventListener('click',(e)=>clickHandler(e,count_$))
+    document.getElementById('rightSide').addEventListener('click',(e)=>clickHandler(e,count_$))
   },[])
-  console.log(count_$)
+  useEffect(()=>{console.log(count_$)},[count_$])
+  function clickHandler(e){
+    // Handler after clicking on right- and left-div
+    setState_$(true)
+    if(e.target.id==='rightSide'){
+      let quote_Element = quote_ref.current
+      quote_Element.addEventListener('transitionend',forward)
+    }
+    if(e.target.id==='leftSide'){
+        let quote_Element = quote_ref.current
+        quote_Element.addEventListener('transitionend',backward)
+    }
+  }
+
+  function forward () {
+    // forward handler
+    let quote_Element = quote_ref.current
+    setState_$(false)
+    setCount_$(p=>p+=1)
+    quote_Element.removeEventListener('transitionend',forward,false)
+  }
+  function backward () {
+    // backward handler
+    let quote_Element = quote_ref.current
+    setState_$(false)
+    setCount_$(p=>p-=1)
+    quote_Element.removeEventListener('transitionend',backward,false)
+
+  }
+
   return (
     <div className="App">
-      <div id='left_'></div>
-      {ready_$ && <SingleQuote quote={data_$[count_$].text} author={data_$[count_$].author}/>}
-      <div id='right_'></div>
+      <div id='leftSide'></div>
+        {ready_$ && 
+          <ONEQUOTE 
+          quote={data_$[Math.abs(count_$)].text} 
+          author={data_$[Math.abs(count_$)].author}
+          hide={state_$}
+          ref_={quote_ref} />
+        }
+      <div id='rightSide'></div>
     </div>
   );
 }
 
-function SingleQuote({quote,author}){
-
+function ONEQUOTE({quote,author,hide,ref_}){
+  // JSX returns a single quote box
   return(
-    <div id={'quote_'}>
+    <div id={'quote_'} ref={ref_} className={hide?'hide':'show'}>
       <h3 id={'quote_body'}>"{quote}"</h3>
       <h4 id={'quote_author'}>{author}</h4>
     </div>

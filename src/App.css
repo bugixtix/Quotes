@@ -1,3 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Dancing+Script:wght@400;500;600;700&display=swap');
+
+:root{
+  --color-01:#778fd2;
+  --color-02:#2a3759;
+  --color-03:#431d32;
+  --color-04:#b7cb99;
+  --color-05:#012e4a;
+  --color-06:#3d5220;
+  --color-07:#036280;
+  --color-08:#378ba4;
+  --color-09:#81bece;
+  --color-10:#e8ede7;
+}
 *{
   box-sizing: border-box;
   margin: 0; padding: 0;
@@ -5,25 +19,45 @@
 .App{
   display: flex; flex-wrap: wrap; align-items: center; justify-content: center; flex-direction: row;
   width: 100vw; height: 100vh;
-  background-color: #000;
+  background-color: var(--color-03);
   position: relative;
+  background: #1A2980;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #26D0CE, #1A2980);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #26D0CE, #1A2980); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  }
+#leftSide{
+  width: 50vw; height: 100vh; z-index: 99;
+  cursor: url('./PNGs/left_03.png'),auto;
 }
-#left_{
-  width: 50vw; height: 100vh; z-index: 999;
-}
-#right_{
-  width: 50vw; height: 100vh; z-index: 999;
+#rightSide{
+  width: 50vw; height: 100vh; z-index: 99;
+  cursor: url('./PNGs/right_03.png'),auto;
 }
 #quote_{
-  padding: 20px;
+  padding: 20px 0px 14px 0px;
   width: 80%; height: auto;
-  border: 1px solid #000; border-radius: 8px;
-  background-color: #ba0;
+  border-radius: 20px;
+  background: #BE93C5;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #7BC6CC, #BE93C5);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #7BC6CC, #BE93C5); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   position: absolute;
+  transition: all ease 1000ms;
+  box-shadow: rgba(255, 255, 255, 0.8) 0px 2px 0px;
+  cursor:initial !important;
+  z-index: 999;
 }
 #quote_body{
-  text-align: center; font-size: 28px; color: #fff; text-shadow: 1px 2px #000; word-spacing: 2px; line-height: 1.4em; letter-spacing: 1.3px; font-style: oblique;
+  text-align: center; font-size: 38px; color: var(--color-10) !important; word-spacing: 2px; line-height: 1.4em; letter-spacing: 1.3px;  font-family: 'Cormorant Garamond', serif; font-weight: 700;  
+  text-shadow: 1px 0px 1px var(--color-05), 0px 1px 1px var(--color-05), 2px 1px 1px var(--color-05), 1px 2px 1px var(--color-05), 3px 2px 1px var(--color-05), 2px 3px 1px var(--color-05), 4px 3px 1px var(--color-05), 3px 4px 1px var(--color-05), 5px 4px 1px var(--color-05), 4px 5px 1px var(--color-05), 6px 5px 1px var(--color-05), 5px 6px 1px var(--color-05), 7px 6px 1px var(--color-05);
 }
 #quote_author{
-  text-align: right; font-size: 20px; color: #fff; text-shadow: 1px 2px #000; letter-spacing: 1.2px;
+  text-align: right; font-size: 24px; color: var(--color-05); letter-spacing: 1.2px; font-family: 'Dancing Script', cursive; font-weight: 600 ; font-style:italic;
+  padding-right:8px;
+}
+.hide{
+  transition:all ease 1000ms;
+  opacity: 0;
+}
+.show{
+  opacity: 1;
 }
